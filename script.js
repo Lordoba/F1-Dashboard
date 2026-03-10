@@ -21,8 +21,10 @@ for (let year = currentYear; year >= firstSeason; year--) {
   seasonBtn.className = "season-button";
   seasonBtn.textContent = year;
 
-  // Klick-Event für Navigation kommt noch... (Task 3)
-
+//Click event hinzufügen, um zur entsprechenden Saison-Seite zu navigieren
+  seasonBtn.addEventListener("click", function () {
+    window.location.href = "season.html?season=" + year; //Hier wird die Saison als URL-Parameter übergeben, damit die season.html Seite weiss, welche Saison angezeigt werden soll
+  });
 
   seasonsGrid.appendChild(seasonBtn);
 }
