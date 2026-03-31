@@ -4,6 +4,7 @@ const currentSeason = new URLSearchParams(window.location.search).get("season");
 const seasonTitle = document.getElementById("season-title");
 seasonTitle.textContent = "Season " + currentSeason;
 
+// Constructor Standings
 fetch(`https://api.jolpi.ca/ergast/f1/${currentSeason}/constructorstandings/`)
     .then(response => response.json())
     .then(data => {
@@ -51,5 +52,43 @@ fetch(`https://api.jolpi.ca/ergast/f1/${currentSeason}/constructorstandings/`)
     })
     .catch(error => {
         console.error("Error fetching season data:", error);
+    });
+
+// Fahrerstandings 
+    fetch(`https://api.jolpi.ca/ergast/f1/${currentSeason}/driverstandings/`)
+    .then(response => response.json())
+    .then(data => {
+        const standings = data.MRData.StandingsTable.StandingsLists[0].DriverStandings;
+
+        const tableBody = document.getElementById("driverBody");
+        tableBody.innerHTML = "";
+
+        for (const driver of standings) {
+
+            const row = document.createElement("tr");
+
+            // Position
+            const positionCell = document.createElement("td");
+            positionCell.textContent = driver.position;
+
+            // Fahrername
+            const nameCell = document.createElement("td");
+            nameCell.textContent =
+                driver.Driver.givenName + " " + driver.Driver.familyName;
+
+            // Punkte
+            const pointsCell = document.createElement("td");
+            pointsCell.textContent = driver.points;
+
+            // alles zusammenbauen
+            row.appendChild(positionCell);
+            row.appendChild(nameCell);
+            row.appendChild(pointsCell);
+
+            tableBody.appendChild(row);
+        }
+    })
+    .catch(error => {
+        console.error("Error fetching driver data:", error);
     });
 
