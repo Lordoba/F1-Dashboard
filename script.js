@@ -15,7 +15,7 @@ const seasonsGrid = document.createElement("div");
 seasonsGrid.id = "seasons-grid";
 seasonsContainer.appendChild(seasonsGrid);
 
-// Jahre absteigend anzeigen 
+// Jahre absteigend anzeigen (neueste zuerst)
 for (let year = currentYear; year >= firstSeason; year--) {
 
   const seasonBtn = document.createElement("button");
