@@ -91,11 +91,11 @@ th {
 
 td {
   padding: 10px;
-  border-bottom: 1px solid #ccc;
+  border-bottom: 1px solid white;
 }
 
 tr:hover {
-  background-color: white;
+  background-color: #e10600;
 }
 
 .loading {
