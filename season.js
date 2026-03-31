@@ -21,3 +21,5 @@ fetch(`https://api.jolpi.ca/ergast/f1/${currentSeason}/constructorstandings/`)
         // const standingsContainer = document.getElementById("standings-container");
         // standingsContainer.textContent = "Fehler beim Laden der Daten.";
     });
+
+    //Test Robin
