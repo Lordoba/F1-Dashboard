@@ -1,0 +1,111 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: black;
+  color: white;
+}
+
+h1 {
+  text-align: center;
+  font-size: 36px;
+  margin-top: 30px;
+  margin-bottom: 20px;
+}
+
+h2 {
+  text-align: center;
+  margin-top: 30px;
+  margin-bottom: 15px;
+}
+
+p {
+  text-align: center;
+  font-size: 18px;
+  margin-bottom: 30px;
+  color: white;
+}
+
+a {
+  color: #e10600;
+  text-decoration: none;
+  font-weight: bold;
+  margin-left: 20px;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+#seasons-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2%;
+}
+
+#seasons-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+}
+
+.season-button {
+  background-color: #e10600;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 12px 18px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.season-button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+}
+
+#driver-standings,
+#constructor-standings {
+  max-width: 1200px;
+  margin: 0 auto 30px auto;
+  padding: 0 2%;
+}
+
+table {
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+  border-collapse: collapse;
+  background-color: white;
+  color: black;
+}
+
+th {
+  background-color: #e10600;
+  color: white;
+  padding: 10px;
+  text-align: left;
+}
+
+td {
+  padding: 10px;
+  border-bottom: 1px solid white;
+}
+
+tr:hover {
+  background-color: #e10600;
+}
+
+.loading {
+  text-align: center;
+  font-size: 18px;
+  color: white;
+}
+
+.error {
+  text-align: center;
+  font-size: 18px;
+  color: red;
+}
