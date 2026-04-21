@@ -12,7 +12,7 @@
 
     <h1 id="season-title">Season</h1>
 
-    <a href="index.html">← Zurück zur Übersicht</a>
+    <a href="index.html">← Zurück zur Übersicht</a> <!--Dammit man zurück zur hauptseite kann -->
 
     <h2>Driver Standings</h2>
     <div id="driver-standings"></div>
@@ -21,7 +21,8 @@
         <tr>
             <th>Position</th>
             <th>Fahrer</th>
-            <th>Punkte</th>
+            <th id="driverWins">Siege</th> <!--ID für die Siege-Spalte, damit wir sie später mit JavaScript ansprechen können um zu sortieren -->
+            <th id="driverPoints">Punkte</th> <!--ID für die Punkte-Spalte, damit wir sie später mit JavaScript ansprechen können um zu sortieren -->
         </tr>
       </thead>
     <tbody id="driverBody"></tbody>
@@ -34,7 +35,8 @@
         <tr>
             <th>Position</th>
             <th>Team</th>
-            <th>Punkte</th>
+            <th id="constructorWins">Siege</th> <!--ID damit später sortiert werden kann -->
+            <th id="constructorPoints">Punkte</th> <!--ID dammit später sortiert werden kann -->
         </tr>
       </thead>
       <tbody id="constructorBody"></tbody>

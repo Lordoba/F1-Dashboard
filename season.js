@@ -4,6 +4,70 @@ const currentSeason = new URLSearchParams(window.location.search).get("season");
 const seasonTitle = document.getElementById("season-title");
 seasonTitle.textContent = "Season " + currentSeason;
 
+// Variablen
+let driverData = [];
+let constructorData = [];
+
+// Funktion zum Rendern der Constructor-Daten
+function renderConstructors(data) {
+    const tableBody = document.getElementById("constructorBody");
+    tableBody.innerHTML = "";
+
+    for (const team of data) {
+        const row = document.createElement("tr");
+
+        const positionCell = document.createElement("td");
+        positionCell.textContent = team.position;
+
+        const teamCell = document.createElement("td");
+        teamCell.textContent = team.Constructor.name;
+
+        const pointsCell = document.createElement("td");
+        pointsCell.textContent = team.points;
+
+        const winsCell = document.createElement("td");
+        winsCell.textContent = team.wins;
+
+        row.appendChild(positionCell);
+        row.appendChild(teamCell);
+        row.appendChild(winsCell);
+        row.appendChild(pointsCell);
+        
+
+        tableBody.appendChild(row);
+    }
+}
+
+// Funktion zum Rendern der Fahrer-Daten
+function renderDrivers(data) {
+    const tableBody = document.getElementById("driverBody");
+    tableBody.innerHTML = "";
+
+    for (const driver of data) {
+        const row = document.createElement("tr");
+
+        const positionCell = document.createElement("td");
+        positionCell.textContent = driver.position;
+
+        const nameCell = document.createElement("td");
+        nameCell.textContent = driver.Driver.givenName + " " + driver.Driver.familyName;
+
+        const pointsCell = document.createElement("td");
+        pointsCell.textContent = driver.points;
+
+        const winsCell = document.createElement("td");
+        winsCell.textContent = driver.wins;
+
+        row.appendChild(positionCell);
+        row.appendChild(nameCell);
+        row.appendChild(winsCell);
+        row.appendChild(pointsCell);
+        
+
+        tableBody.appendChild(row);
+    }
+}
+
 // Constructor Standings
 fetch(`https://api.jolpi.ca/ergast/f1/${currentSeason}/constructorstandings/`)
     .then(response => response.json())
@@ -20,35 +84,8 @@ fetch(`https://api.jolpi.ca/ergast/f1/${currentSeason}/constructorstandings/`)
             return;
         }
 
-        const standings = data.MRData.StandingsTable.StandingsLists[0].ConstructorStandings;
-        const tableBody = document.getElementById("constructorBody");
-        tableBody.innerHTML = ""; // Tabele leeren bevor neue Daten hinzugefügt werden
-
-        for (const team of standings) {
-
-            // Zeile erstellen
-            const row = document.createElement("tr");
-
-            // Position
-            const positionCell = document.createElement("td");
-            positionCell.textContent = team.position;
-
-            // Team Name
-            const teamCell = document.createElement("td");
-            teamCell.textContent = team.Constructor.name;
-
-            // Punkte
-            const pointsCell = document.createElement("td");
-            pointsCell.textContent = team.points;
-
-            // hinzufügen
-            row.appendChild(positionCell);
-            row.appendChild(teamCell);
-            row.appendChild(pointsCell);
-
-            // Zeile zur Tabelle hinzufügen
-            tableBody.appendChild(row);
-        }
+        constructorData = data.MRData.StandingsTable.StandingsLists[0].ConstructorStandings; // Daten in globale Variable speichern, damit sie später sortiert werden können
+        renderConstructors(constructorData); // Eigene Funktion zum Rendern der Constructor-Daten aufrufen damit sie auch später wiederverwendet werden kann, wenn die Daten sortiert werden
     })
     .catch(error => {
         console.error("Error fetching season data:", error);
@@ -58,37 +95,13 @@ fetch(`https://api.jolpi.ca/ergast/f1/${currentSeason}/constructorstandings/`)
     fetch(`https://api.jolpi.ca/ergast/f1/${currentSeason}/driverstandings/`)
     .then(response => response.json())
     .then(data => {
-        const standings = data.MRData.StandingsTable.StandingsLists[0].DriverStandings;
+        driverData = data.MRData.StandingsTable.StandingsLists[0].DriverStandings;
+        renderDrivers(driverData); 
 
-        const tableBody = document.getElementById("driverBody");
-        tableBody.innerHTML = "";
 
-        for (const driver of standings) {
-
-            const row = document.createElement("tr");
-
-            // Position
-            const positionCell = document.createElement("td");
-            positionCell.textContent = driver.position;
-
-            // Fahrername
-            const nameCell = document.createElement("td");
-            nameCell.textContent =
-                driver.Driver.givenName + " " + driver.Driver.familyName;
-
-            // Punkte
-            const pointsCell = document.createElement("td");
-            pointsCell.textContent = driver.points;
-
-            // alles zusammenbauen
-            row.appendChild(positionCell);
-            row.appendChild(nameCell);
-            row.appendChild(pointsCell);
-
-            tableBody.appendChild(row);
-        }
     })
     .catch(error => {
         console.error("Error fetching driver data:", error);
     });
+
 
