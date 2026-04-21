@@ -103,5 +103,24 @@ fetch(`https://api.jolpi.ca/ergast/f1/${currentSeason}/constructorstandings/`)
     .catch(error => {
         console.error("Error fetching driver data:", error);
     });
+//Button-EventListener für die Sortierung nach Siegen
+document.getElementById("driverWins").addEventListener("click", function () {
+    driverData.sort((a, b) => b.wins - a.wins);
+    renderDrivers(driverData);
+});
 
+document.getElementById("constructorWins").addEventListener("click", function () {
+    constructorData.sort((a, b) => b.wins - a.wins);
+    renderConstructors(constructorData);
+});
 
+//Button-EventListener für die Sortierung nach Punkten
+document.getElementById("driverPoints").addEventListener("click", function () {
+    driverData.sort((a, b) => b.points - a.points);
+    renderDrivers(driverData);
+});
+
+document.getElementById("constructorPoints").addEventListener("click", function () {
+    constructorData.sort((a, b) => b.points - a.points);
+    renderConstructors(constructorData);
+});
