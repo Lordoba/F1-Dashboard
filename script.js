@@ -22,7 +22,7 @@ for (let year = currentYear; year >= firstSeason; year--) {
   seasonBtn.className = "season-button";
   seasonBtn.textContent = year;
 
-  // Issue 3: Navigation zur Season-Seite
+  //Navigation zur Season-Seite
   seasonBtn.addEventListener("click", function () {
     window.location.href = "season.html?season=" + year;
   });
@@ -57,6 +57,27 @@ async function fahrerSuchen(fahrer) {
       continue;
     }
   }
+const anzeige = document.getElementById("search-results");
 
-  return ergebnisse;
+// Wenn keine Ergebnisse gefunden wurden
+if (ergebnisse.length === 0) {
+  anzeige.innerHTML = "<p class='error'>Kein Fahrer gefunden.</p>";
+  return;
+}
+
+// Tabelle aufbauen
+let tabelle = "<table><thead><tr><th>Season</th><th>Position</th><th>Punkte</th></tr></thead><tbody>";
+
+// Für jedes Ergebnis eine Zeile hinzufügen
+for (const e of ergebnisse) {
+  tabelle += `<tr>
+    <td>${e.jahr}</td>
+    <td>${e.position}</td>
+    <td>${e.punkte}</td>
+  </tr>`;
+}
+
+// Tabelle schliessen und anzeigen
+tabelle += "</tbody></table>";
+anzeige.innerHTML = tabelle;
 }
