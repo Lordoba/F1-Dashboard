@@ -37,7 +37,7 @@ document.getElementById("search-btn").addEventListener("click", function () {
 
 async function fahrerSuchen(fahrer) {
   const ergebnisse = [];
-
+  document.getElementById("search-results").innerHTML = "<p class='loading'>Suche läuft...</p>";
   for (let jahr = currentYear; jahr >= firstSeason; jahr--) {
     try {
       const antwort = await fetch(`https://api.jolpi.ca/ergast/f1/${jahr}/driverstandings/`);
@@ -51,7 +51,7 @@ async function fahrerSuchen(fahrer) {
       );
 
       if (gefunden) {
-        ergebnisse.push({ jahr, position: gefunden.position, punkte: gefunden.points });
+        ergebnisse.push({ jahr, position: gefunden.position, siege: gefunden.wins, punkte: gefunden.points });
       }
     } catch (e) {
       continue;
@@ -66,14 +66,14 @@ if (ergebnisse.length === 0) {
 }
 
 // Tabelle aufbauen
-let tabelle = "<table><thead><tr><th>Season</th><th>Position</th><th>Punkte</th></tr></thead><tbody>";
-
+let tabelle = "<table><thead><tr><th>Season</th><th>Position</th><th>Siege</th><th>Punkte</th></tr></thead><tbody>";
 // Für jedes Ergebnis eine Zeile hinzufügen
 for (const e of ergebnisse) {
-  tabelle += `<tr>
-    <td>${e.jahr}</td>
-    <td>${e.position}</td>
-    <td>${e.punkte}</td>
+ tabelle += `<tr style="cursor:pointer" onclick="window.location.href='season.html?season=${e.jahr}'">
+  <td>${e.jahr}</td>
+  <td>${e.position}</td>
+  <td>${e.siege}</td>
+  <td>${e.punkte}</td>
   </tr>`;
 }
 
