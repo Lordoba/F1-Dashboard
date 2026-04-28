@@ -86,6 +86,7 @@ fetch(`https://api.jolpi.ca/ergast/f1/${currentSeason}/constructorstandings/`)
 
         constructorData = data.MRData.StandingsTable.StandingsLists[0].ConstructorStandings; // Daten in globale Variable speichern, damit sie später sortiert werden können
         renderConstructors(constructorData); // Eigene Funktion zum Rendern der Constructor-Daten aufrufen damit sie auch später wiederverwendet werden kann, wenn die Daten sortiert werden
+        document.getElementById("constructorPoints").textContent = "Punkte ↓";
     })
     .catch(error => {
         console.error("Error fetching season data:", error);
@@ -97,30 +98,40 @@ fetch(`https://api.jolpi.ca/ergast/f1/${currentSeason}/constructorstandings/`)
     .then(data => {
         driverData = data.MRData.StandingsTable.StandingsLists[0].DriverStandings;
         renderDrivers(driverData); 
-
+        document.getElementById("driverPoints").textContent = "Punkte ↓";
 
     })
     .catch(error => {
         console.error("Error fetching driver data:", error);
     });
+
 //Button-EventListener für die Sortierung nach Siegen
 document.getElementById("driverWins").addEventListener("click", function () {
     driverData.sort((a, b) => b.wins - a.wins);
     renderDrivers(driverData);
+    document.getElementById("driverWins").textContent = "Siege ↓";
+    document.getElementById("driverPoints").textContent = "Punkte";
 });
 
 document.getElementById("constructorWins").addEventListener("click", function () {
     constructorData.sort((a, b) => b.wins - a.wins);
     renderConstructors(constructorData);
+    document.getElementById("constructorWins").textContent = "Siege ↓";
+    document.getElementById("constructorPoints").textContent = "Punkte";
+    
 });
 
 //Button-EventListener für die Sortierung nach Punkten
 document.getElementById("driverPoints").addEventListener("click", function () {
     driverData.sort((a, b) => b.points - a.points);
     renderDrivers(driverData);
+    document.getElementById("driverPoints").textContent = "Punkte ↓";
+    document.getElementById("driverWins").textContent = "Siege";
 });
 
 document.getElementById("constructorPoints").addEventListener("click", function () {
     constructorData.sort((a, b) => b.points - a.points);
     renderConstructors(constructorData);
+    document.getElementById("constructorPoints").textContent = "Punkte ↓";
+    document.getElementById("constructorWins").textContent = "Siege";
 });
