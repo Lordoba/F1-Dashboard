@@ -96,6 +96,17 @@ fetch(`https://api.jolpi.ca/ergast/f1/${currentSeason}/constructorstandings/`)
     fetch(`https://api.jolpi.ca/ergast/f1/${currentSeason}/driverstandings/`)
     .then(response => response.json())
     .then(data => {
+        const lists = data.MRData.StandingsTable.StandingsLists;
+
+        // Check ob Daten existieren
+        if (lists.length === 0) {
+            console.log("Keine Constructor-Daten für diese Saison");
+
+            const tableBody = document.getElementById("driverBody");
+            tableBody.innerHTML = "<tr><td colspan='3'>Keine Daten verfügbar</td></tr>";
+
+            return;
+        }
         driverData = data.MRData.StandingsTable.StandingsLists[0].DriverStandings;
         renderDrivers(driverData); 
         document.getElementById("driverPoints").textContent = "Punkte ↓";
