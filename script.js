@@ -32,5 +32,31 @@ for (let year = currentYear; year >= firstSeason; year--) {
 document.getElementById("search-btn").addEventListener("click", function () {
   const fahrer = document.getElementById("driver-search").value.trim().toLowerCase();
   if (!fahrer) return;
-  console.log("Suche nach:", fahrer);
+  fahrerSuchen(fahrer);
 });
+
+async function fahrerSuchen(fahrer) {
+  const ergebnisse = [];
+
+  for (let jahr = currentYear; jahr >= firstSeason; jahr--) {
+    try {
+      const antwort = await fetch(`https://api.jolpi.ca/ergast/f1/${jahr}/driverstandings/`);
+      const daten = await antwort.json();
+      const listen = daten.MRData.StandingsTable.StandingsLists;
+      if (listen.length === 0) continue;
+
+      const fahrerliste = listen[0].DriverStandings;
+      const gefunden = fahrerliste.find(d =>
+        (d.Driver.givenName + " " + d.Driver.familyName).toLowerCase().includes(fahrer)
+      );
+
+      if (gefunden) {
+        ergebnisse.push({ jahr, position: gefunden.position, punkte: gefunden.points });
+      }
+    } catch (e) {
+      continue;
+    }
+  }
+
+  return ergebnisse;
+}
