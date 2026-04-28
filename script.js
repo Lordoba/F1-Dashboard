@@ -29,3 +29,8 @@ for (let year = currentYear; year >= firstSeason; year--) {
 
   seasonsGrid.appendChild(seasonBtn);
 }
+document.getElementById("search-btn").addEventListener("click", function () {
+  const fahrer = document.getElementById("driver-search").value.trim().toLowerCase();
+  if (!fahrer) return;
+  console.log("Suche nach:", fahrer);
+});
